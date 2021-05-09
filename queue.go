@@ -1,19 +1,25 @@
 package main
 
-type queue chan Path
+// Queue implementation using a channel
+type Queue chan Path
 
-func (q queue) Push(s Path) {
-	q <- s
+// Enqueue adds an item to the queue.
+func (q *Queue) Enqueue(s Path) {
+	*q <- s
 }
 
-func (q queue) Pop() Path {
-	return <-q
+// Dequeue removes and returns the
+// item in the beginning of the Queue.
+func (q *Queue) Dequeue() Path {
+	return <-*q
 }
 
-func (q queue) Length() int {
-	return len(q)
+// Size counts the items in the Queue.
+func (q *Queue) Size() int {
+	return len(*q)
 }
 
-func (q queue) IsEmpty() bool {
-	return q.Length() == 0
+// IsEmpty checks if a Queue is empty.
+func (q *Queue) IsEmpty() bool {
+	return q.Size() == 0
 }

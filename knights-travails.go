@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 const boardSize = 8
 
 type Square struct {
@@ -28,10 +30,10 @@ var moves = []Move{
 // to take a knight from the start to the target position.
 func findMoves(start, target Square) []Path {
 	// Create queue of squares to be visited.
-	q := make(queue)
+	queue := make(Queue, queueCapacity())
 
 	// Enqueue the start position.
-	q.Push(newPath(start))
+	queue.Enqueue(newPath(start))
 
 	// Use a map to keep track of the visited squares.
 	visited := [boardSize][boardSize]bool{}
@@ -44,9 +46,9 @@ func findMoves(start, target Square) []Path {
 	shortestDistance := 0
 
 	// Loop through the queue until it is empty.
-	for q.IsEmpty() {
+	for queue.IsEmpty() {
 		// Pop an element, onwards called current
-		current := q.Pop()
+		current := queue.Dequeue()
 
 		// Check if target was already found and distance is
 		// greater than the shortest distance
@@ -81,13 +83,18 @@ func findMoves(start, target Square) []Path {
 				if visited[position.X][position.Y] == false {
 					// Enqueue if not.
 					visited[position.X][position.Y] = true
-					q.Push(newPath)
+					queue.Enqueue(newPath)
 				}
 			}
 		}
 	}
 
 	return results
+}
+
+// Calculates the queueCapacity based on the board size.
+func queueCapacity() int {
+	return int(math.Pow(boardSize, 2))
 }
 
 func main() {
