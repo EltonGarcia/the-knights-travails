@@ -15,12 +15,14 @@ func main() {
 	start := convertToSquare(s)
 	t := promptPosition("Please insert the target position: ")
 	target := convertToSquare(t)
-	results := findMoves(start, target)
+	if start == target{
+		fmt.Printf("The start and target positions must be different.")
+		return
+	}
+	result := findMoves(start, target)
 	fmt.Printf("The shortest path from %s to %s is: \n",
 		squareToChessNotation(start), squareToChessNotation(target))
-	for _, path := range results {
-		printPath(path)
-	}
+	printPath(result)
 }
 
 // Prints every move of a path in chess notation.
