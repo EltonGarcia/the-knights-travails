@@ -2,6 +2,7 @@ package main
 
 import "math"
 
+// Constant for a standard board size.
 const boardSize = 8
 
 type Square struct {
@@ -15,7 +16,7 @@ type Move struct {
 }
 
 // Specifies all possible moves for a chess knight.
-var moves = []Move{
+var knightMoves = []Move{
 	{-2, -1},
 	{-1, -2},
 	{1, -2},
@@ -73,7 +74,7 @@ func findMoves(start, target Square) []Path {
 		}
 
 		// Loop through moves.
-		for _, movement := range moves {
+		for _, movement := range knightMoves {
 			// Apply each move to the current square.
 			newPath, isValid := current.Move(movement, boardSize)
 			if isValid {
@@ -95,8 +96,4 @@ func findMoves(start, target Square) []Path {
 // Calculates the queueCapacity based on the board size.
 func queueCapacity() int {
 	return int(math.Pow(boardSize, 2))
-}
-
-func main() {
-
 }
