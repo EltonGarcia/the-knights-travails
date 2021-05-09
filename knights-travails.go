@@ -36,7 +36,7 @@ func findMoves(start, target Square) []Path {
 	queue.Enqueue(newPath(start))
 
 	// Use a map to keep track of the visited squares.
-	visited := [boardSize][boardSize]bool{}
+	visited := [boardSize + 1][boardSize + 1]bool{}
 
 	// Array to keep the solutions found.
 	var results []Path
@@ -46,7 +46,7 @@ func findMoves(start, target Square) []Path {
 	shortestDistance := 0
 
 	// Loop through the queue until it is empty.
-	for queue.IsEmpty() {
+	for !queue.IsEmpty() {
 		// Pop an element, onwards called current
 		current := queue.Dequeue()
 
