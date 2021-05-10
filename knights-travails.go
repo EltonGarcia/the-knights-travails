@@ -37,7 +37,7 @@ func findMoves(start, target Square) Path {
 	queue.Enqueue(newPath(start))
 
 	// Use a map to keep track of the visited squares.
-	visited := [boardSize + 1][boardSize + 1]bool{}
+	visited := map[Square]bool{}
 
 	// Loop through the queue until it is empty.
 	for !queue.IsEmpty() {
@@ -54,12 +54,11 @@ func findMoves(start, target Square) Path {
 			// Apply each move to the current square.
 			newPath, isValid := current.Move(movement, boardSize)
 			if isValid {
-				// TODO: evaluate visited improvements
 				// Check if the result square was visited.
 				position := newPath.LastPosition()
-				if visited[position.X][position.Y] == false {
+				if visited[position] == false {
 					// Enqueue if not.
-					visited[position.X][position.Y] = true
+					visited[position] = true
 					queue.Enqueue(newPath)
 				}
 			}

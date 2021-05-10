@@ -25,8 +25,7 @@ func (p *Path) LastPosition() Square {
 // Check if the path has reached the target position.
 func (p *Path) HasReachedTarget(target Square) bool {
 	position := p.LastPosition()
-	//TODO: evaluate square comparison improvements
-	return position.X == target.X && position.Y == target.Y
+	return position == target
 }
 
 // Executes a new movement in the path.
