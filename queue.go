@@ -1,17 +1,22 @@
 package main
 
 // Queue implementation using a channel
-type Queue chan Path
+type Queue chan *Path
 
 // Enqueue adds an item to the queue.
-func (q *Queue) Enqueue(s Path) {
+func (q *Queue) Enqueue(s *Path) {
 	*q <- s
 }
 
 // Dequeue removes and returns the
 // item in the beginning of the Queue.
-func (q *Queue) Dequeue() Path {
-	return <-*q
+func (q *Queue) Dequeue() *Path {
+	select {
+	case item := <-*q:
+		return item
+	default:
+		return nil
+	}
 }
 
 // Size counts the items in the Queue.

@@ -46,3 +46,5 @@ Expected Output:
   
 ## Dependencies
 [Testify](https://github.com/stretchr/testify) employed to assert unit tests.
+
+[Copier](https://github.com/jinzhu/copier) employed for deep struct copy.

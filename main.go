@@ -15,24 +15,32 @@ func main() {
 	start := convertToSquare(s)
 	t := promptPosition("Please insert the target position: ")
 	target := convertToSquare(t)
-	if start == target{
+	if start == target {
 		fmt.Printf("The start and target positions must be different.")
 		return
 	}
-	result := findMoves(start, target)
-	fmt.Printf("The shortest path from %s to %s is: \n",
+	results := findMoves(start, target)
+	fmt.Printf("The shortest paths from %s to %s are: \n",
 		squareToChessNotation(start), squareToChessNotation(target))
-	printPath(result)
+	for _, path := range results {
+		printPath(path)
+	}
 }
 
 // Prints every move of a path in chess notation.
-func printPath(path Path) {
+func printPath(path *Path) {
+	fmt.Println(formatPath(path))
+}
+
+// Format the result path string
+func formatPath(path *Path) string {
 	// Skip the start square
 	moves := path.Moves[1:]
-	for _, square := range moves {
-		fmt.Printf("%s ", squareToChessNotation(square))
+	sequence := make([]string, len(moves))
+	for i, square := range moves {
+		sequence[i] = squareToChessNotation(square)
 	}
-	fmt.Println()
+	return strings.Join(sequence, " ")
 }
 
 // Converts a Square to a chess notation string.

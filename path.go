@@ -1,13 +1,15 @@
 package main
 
+import "github.com/jinzhu/copier"
+
 // Path stores the moves made for the knight on the board.
 type Path struct {
 	Moves []Square
 }
 
 // Create a new Path from a Square.
-func newPath(s Square) Path {
-	return Path{
+func newPath(s Square) *Path {
+	return &Path{
 		Moves: []Square{s},
 	}
 }
@@ -35,8 +37,13 @@ func (p *Path) Move(m Move, boardSize int) (Path, bool) {
 	if !isSquareValid(square, boardSize) {
 		return Path{}, false
 	}
+	var moves []Square
+	err := copier.Copy(&moves, &p.Moves)
+	if err != nil{
+		panic(err)
+	}
 	newPath := Path{
-		Moves: append(p.Moves, square),
+		Moves: append(moves, square),
 	}
 	return newPath, true
 }
