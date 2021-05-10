@@ -43,6 +43,10 @@ Expected Output:
 
 * Execute the unit-tests:
 ``go test -v``
+
+**Result**
+
+![Result](/screenshot/result.png?raw=true "result")
   
 ## Dependencies
 [Testify](https://github.com/stretchr/testify) employed to assert unit tests.
